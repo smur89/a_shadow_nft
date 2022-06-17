@@ -1,0 +1,13 @@
+{
+  "description" : "",
+  "external_url" : "",
+  "image" : "",
+  "name" : "For Poppy",
+  "attributes": [
+    {
+      "display_type": "date",
+      "trait_type": "release date",
+      "value": 1654473600
+    }
+  ]
+}
