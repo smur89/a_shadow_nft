@@ -28,7 +28,8 @@ contract AShadowAssemblages is ERC721, Pausable, Ownable, PullPayment {
     mapping(address => uint256) public mintedWallets;
 
     constructor() ERC721("AShadowAssemblages", "ASHADOW") {
-
+        /// @dev Increment in constructor to reduce gas fees on first mint
+        _tokenIdCounter.increment();
     }
 
     function _baseURI() internal pure override returns (string memory) {
