@@ -44,13 +44,13 @@ contract AShadowAssemblages is ERC721, Pausable, Ownable, PullPayment {
         _unpause();
     }
 
-    /// @param to The address to send the NFT to
-    function safeMint(address memory _to) external payable whenNotPaused {
+    /// @param _to The address to send the NFT to
+    function safeMint(address _to) external payable whenNotPaused {
         require(msg.value == MintPrice, "Wrong value");
         require(mintedWallets[_to] < NftsPerWallet, "Not enough ether sent");
         require(MaxSupply > _tokenIdCounter.current(), "Sold out");
 
-        uint256 memory tokenId = _tokenIdCounter.current();
+        uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         mintedWallets[_to]++;
         _safeMint(_to, tokenId);
@@ -60,17 +60,12 @@ contract AShadowAssemblages is ERC721, Pausable, Ownable, PullPayment {
         super._beforeTokenTransfer(from, to, tokenId);
     }
 
-//    function withdraw() external onlyOwner {
-//        uint256 memory contractBalance = address(this).balance;
-//        require(contractBalance > 0, "Nothing to withdraw");
-//        payable(owner()).transfer(contractBalance);
-//    }
     /// @dev Overridden in order to make it an onlyOwner function
     function withdrawPayments(address payable payee) public override onlyOwner virtual {
         super.withdrawPayments(payee);
     }
 
-    function contractURI() public view returns (string memory) {
-        return _baseURI() + "a_shadow_assemblages.json";
+    function contractURI() public pure returns (string memory) {
+        return string.concat(_baseURI(), "a_shadow_assemblages.json");
     }
 }
